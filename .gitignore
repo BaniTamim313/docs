@@ -25,5 +25,6 @@ content/docs/for-platform-operators/how-to/integrate-ci/pack/cli/pack*
 # Tools
 /bin
 /tmp
+__pycache__/
 
 /tools/bin

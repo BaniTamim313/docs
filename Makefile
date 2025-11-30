@@ -136,6 +136,11 @@ build: $(HUGO_BIN) pack-version pack-docs-update
 	@echo "> Building..."
 	$(HUGO_BIN)
 
+.PHONY: serve-python
+serve-python: build
+	@echo "> Serving with Python..."
+	python3 tools/server.py $(SERVE_PORT)
+
 .PHONY: test
 test: install-pack-cli check-pack-cli-version install-ugo
 	@echo "> Testing..."
