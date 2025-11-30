@@ -1,0 +1,49 @@
+{{ define "main" }}
+
+<div class='docs'>
+  <div class="container">
+    <div class='row'>
+      <div class='col-md-12 docs-content'>
+        {{ partial "support.html" . }}
+
+        <div class="heading">
+          <h1 class="title">{{ .Title | markdownify }}</h1>
+          {{ with .Params.description }}
+          <p class="lead text-muted">{{ . | markdownify }}</p>
+          {{ end }}
+        </div>
+
+        {{ .Content }}
+
+        <div class="row">
+          {{ range .Pages }}
+          {{ $page := . }}
+          <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100">
+              {{ with .Params.image }}
+              <img src="{{ . }}" class="card-img-top" alt="{{ $page.Title }}">
+              {{ end }}
+              <div class="card-body">
+                <h5 class="card-title">{{ .Title }}</h5>
+                <p class="card-text">{{ .Summary | truncate 150 }}</p>
+              </div>
+              <div class="card-footer bg-transparent">
+                <a href="{{ .Permalink }}" class="btn btn-sm btn-primary">Learn More</a>
+                {{ with .Params.project_url }}
+                <a href="{{ . }}" class="btn btn-sm btn-outline-secondary" target="_blank" rel="noopener noreferrer">
+                  <i class="fas fa-external-link-alt"></i>
+                </a>
+                {{ end }}
+              </div>
+            </div>
+          </div>
+          {{ end }}
+        </div>
+
+        {{ partial "footline.html" . }}
+      </div>
+    </div>
+  </div>
+</div>
+
+{{ end }}
