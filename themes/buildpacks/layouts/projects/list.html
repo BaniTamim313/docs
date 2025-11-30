@@ -17,10 +17,11 @@
 
         <div class="row">
           {{ range .Pages }}
+          {{ $page := . }}
           <div class="col-md-6 col-lg-4 mb-4">
             <div class="card h-100">
               {{ with .Params.image }}
-              <img src="{{ . }}" class="card-img-top" alt="{{ $.Title }}">
+              <img src="{{ . }}" class="card-img-top" alt="{{ $page.Title }}">
               {{ end }}
               <div class="card-body">
                 <h5 class="card-title">{{ .Title }}</h5>
