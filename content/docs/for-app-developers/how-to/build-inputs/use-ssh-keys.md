@@ -33,10 +33,12 @@ Create a directory with your SSH configuration:
 
 ```bash
 mkdir -p /tmp/ssh-keys
-cp ~/.ssh/id_rsa /tmp/ssh-keys/
+cp ~/.ssh/id_ed25519 /tmp/ssh-keys/  # or id_rsa for RSA keys
 cp ~/.ssh/known_hosts /tmp/ssh-keys/
-chmod 600 /tmp/ssh-keys/id_rsa
+chmod 600 /tmp/ssh-keys/id_ed25519
 ```
+
+> **Tip:** Modern SSH implementations prefer Ed25519 keys (`id_ed25519`) over RSA for better security. Use your actual key filename if different.
 
 Then mount this directory during the build:
 
@@ -60,7 +62,33 @@ pack build my-app \
     --path ./my-app
 ```
 
-Your buildpack or application can then configure Git to use this token:
+Your buildpack or application can then configure Git to use this token. The recommended approach is to use a `.netrc` file or Git credential helper to avoid exposing the token in command history or logs:
+
+### Using .netrc file (recommended)
+
+Create a `.netrc` file with your credentials:
+
+```bash
+cat > /tmp/netrc << EOF
+machine github.com
+login <your-username>
+password <your-personal-access-token>
+EOF
+chmod 600 /tmp/netrc
+```
+
+Mount it during the build:
+
+```bash
+pack build my-app \
+    --builder paketobuildpacks/builder-jammy-base \
+    --volume /tmp/netrc:/home/cnb/.netrc:ro \
+    --path ./my-app
+```
+
+### Using Git URL rewriting
+
+Alternatively, configure Git to use the token directly (note: this may expose the token in logs):
 
 ```bash
 git config --global url."https://${GIT_TOKEN}@github.com/".insteadOf "git@github.com:"
