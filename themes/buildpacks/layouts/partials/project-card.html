@@ -1,0 +1,22 @@
+<div class="col-md-6 col-lg-4 mb-4">
+  <div class="card h-100 shadow-sm">
+    {{ if .Params.image }}
+    <img src="{{ .Params.image }}" class="card-img-top" alt="{{ .Title }}">
+    {{ end }}
+    <div class="card-body">
+      <h5 class="card-title">{{ .Title | markdownify }}</h5>
+      {{ if .Params.tagline }}
+        <p class="card-text text-muted small">{{ .Params.tagline }}</p>
+      {{ end }}
+      <p class="card-text">{{ .Summary | truncate 150 }}</p>
+    </div>
+    <div class="card-footer bg-transparent border-top-0">
+      <a href="{{ .Permalink }}" class="btn btn-outline-primary btn-sm">Learn More</a>
+      {{ if .Params.github_url }}
+        <a href="{{ .Params.github_url }}" class="btn btn-outline-secondary btn-sm" target="_blank" rel="noopener noreferrer">
+          <i class="fab fa-github"></i> GitHub
+        </a>
+      {{ end }}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,36 @@
+{{ define "main" }}
+
+<div class='docs'>
+  <div class="bg-blue">
+    <div class="container">
+      <div class="row py-5">
+        <div class='col-12 text-center text-white'>
+          <h1 class="mt-1 mb-2 text-white">{{ .Title | markdownify }}</h1>
+          {{ if .Params.description }}
+            <p class="lead mb-0">{{ .Params.description }}</p>
+          {{ end }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class='row my-4'>
+      <div class='col-md-12 docs-content'>
+        {{ .Content }}
+
+        {{ if .Pages }}
+        <div class="row">
+          {{ range .Pages }}
+            {{ partial "project-card.html" . }}
+          {{ end }}
+        </div>
+        {{ end }}
+
+        {{ partial "footline.html" . }}
+      </div>
+    </div>
+  </div>
+</div>
+
+{{ end }}
