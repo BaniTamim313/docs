@@ -174,6 +174,16 @@ check-links:
 tools-tidy:
 	cd tools; go mod tidy
 
+.PHONY: meta-detect
+meta-detect:
+	@echo "> Detecting markdown metadata..."
+	pwsh -NoProfile -ExecutionPolicy Bypass -File tools/meta-detector.ps1
+
+.PHONY: meta-detect-json
+meta-detect-json:
+	@echo "> Detecting markdown metadata (JSON output)..."
+	pwsh -NoProfile -ExecutionPolicy Bypass -File tools/meta-detector.ps1 -OutputFormat JSON
+
 .PHONY: prepare-for-pr
 prepare-for-pr: check-links test tools-tidy
 	@echo "========"

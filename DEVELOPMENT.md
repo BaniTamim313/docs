@@ -34,7 +34,7 @@ make serve-python
 Or directly:
 
 ```bash
-python3 tools/server.py 8000
+python3 tools/server.py 1313
 ```
 
 #### Build

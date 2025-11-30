@@ -77,8 +77,6 @@ def main():
         print("Please run 'make build' first to generate the documentation.")
         sys.exit(1)
 
-    os.chdir(public_dir)
-
     handler = partial(DocumentationHandler, directory=str(public_dir))
 
     with socketserver.TCPServer((args.bind, args.port), handler) as httpd:
